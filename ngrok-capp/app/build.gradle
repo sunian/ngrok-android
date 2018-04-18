@@ -2,10 +2,9 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.3"
 
     defaultConfig {
-        applicationId "com.a16v16.ngrok_c"
+        applicationId "com.github.sunian.ngrok_c"
         minSdkVersion 15
         targetSdkVersion 23
         versionCode 1
