@@ -4,15 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.os.Message;
 import android.util.Log;
-import android.widget.Toast;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 
 public class BootBroadcastReceiver extends BroadcastReceiver {
     static final String action_boot="android.intent.action.BOOT_COMPLETED";
@@ -22,7 +14,7 @@ public class BootBroadcastReceiver extends BroadcastReceiver {
         if (intent.getAction().equals(action_boot)){
             Log.i("tag","autostart....");
             SharedPreferences sharedPreferences = context.getSharedPreferences(context.getPackageName(), Context.MODE_PRIVATE); //私有数据
-            boolean autostart=sharedPreferences.getBoolean("autostart",false);
+            boolean autostart=sharedPreferences.getBoolean(MainActivity.AUTOSTART,false);
             if(autostart) {
                 Intent intent1 = new Intent(context, MainActivity.class);
                 intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

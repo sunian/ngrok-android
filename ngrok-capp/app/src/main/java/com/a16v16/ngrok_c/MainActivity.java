@@ -30,6 +30,8 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 
 public class MainActivity extends AppCompatActivity {
+    public static final String CMD = "cmd";
+    public static final String AUTOSTART = "autostart";
     String exec_path = "";
     String privatepath = "";
     TextView out;
@@ -46,10 +48,10 @@ public class MainActivity extends AppCompatActivity {
         tv.setText("Not yet started");
         privatepath = getFilesDir() + "";
         Intent intent = getIntent();
-        if (intent.getBooleanExtra("autostart", false)) {
+        if (intent.getBooleanExtra(AUTOSTART, false)) {
             final String exec_path = privatepath + "/ngrokc";
             SharedPreferences sharedPreferences = getSharedPreferences(getPackageName(), Context.MODE_PRIVATE); //私有数据
-            final String cmdstr = sharedPreferences.getString("cmd", "");
+            final String cmdstr = sharedPreferences.getString(CMD, "");
             new Thread(new Runnable() {
                 public void run() {
                     try {
@@ -69,11 +71,11 @@ public class MainActivity extends AppCompatActivity {
 
 
         SharedPreferences sharedPreferences = getSharedPreferences(MainActivity.this.getPackageName(), Context.MODE_PRIVATE); //私有数据
-        String cmdstr = sharedPreferences.getString("cmd", "");
+        String cmdstr = sharedPreferences.getString(CMD, "");
         if (cmdstr.length() > 0) {
             cmd.setText(cmdstr);
         }
-        autostart.setChecked(sharedPreferences.getBoolean("autostart", false));
+        autostart.setChecked(sharedPreferences.getBoolean(AUTOSTART, false));
 
 
         try {
@@ -169,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
                 final EditText cmd = (EditText) findViewById(R.id.cmd);
                 SharedPreferences sharedPreferences = getSharedPreferences(MainActivity.this.getPackageName(), Context.MODE_PRIVATE); //私有数据
                 Editor editor = sharedPreferences.edit();//获取编辑器
-                editor.putString("cmd", cmd.getText() + "");
+                editor.putString(CMD, cmd.getText() + "");
                 editor.commit();//提交修改
             }
         });
@@ -177,7 +179,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 SharedPreferences sharedPreferences = getSharedPreferences(MainActivity.this.getPackageName(), Context.MODE_PRIVATE); //私有数据
                 Editor editor = sharedPreferences.edit();//获取编辑器
-                editor.putBoolean("autostart", autostart.isChecked());
+                editor.putBoolean(AUTOSTART, autostart.isChecked());
                 editor.commit();//提交修改
             }
         });
